@@ -1,17 +1,27 @@
 using UnityEngine;
 using TMPro;
 
-public class RhythmNote : MonoBehaviour
+public class ActorMCCommand : MonoBehaviour
 {
-    public RectTransform timingRing;
+    public RectTransform timingRectangle;
+    public TextMeshProUGUI directionText;
+    public float duration = 1.0f;
 
-    [Header("UI Settings")]
+    [Header ("Hit Result")]
     public GameObject hitResultPrefab;
     public Transform canvasTransform;
 
+    private string targetKey;
     private float elapsed = 0f;
-    private float duration = 1.0f;
     private bool wasHandled = false;
+    private MCCommandSpawner knight;
+
+    public void SetupCommand(MCCommandSpawner knightRef, string requiredKey)
+    {
+        knight = knightRef;
+        targetKey = requiredKey.ToUpper();
+        directionText.text = targetKey;
+    }
 
     void Update()
     {
@@ -19,9 +29,20 @@ public class RhythmNote : MonoBehaviour
 
         elapsed += Time.deltaTime;
         float progress = elapsed / duration;
-
         float currentScale = Mathf.Lerp(3.0f, 1.0f, progress);
-        timingRing.localScale = new Vector3(currentScale, currentScale, 1);
+        timingRectangle.localScale = new Vector3(currentScale, currentScale, 1);
+
+        if (Input.anyKeyDown)
+        {
+            if (Input.GetKeyDown(targetKey.ToLower()))
+            {
+                EvaluateHit();
+            }
+            else
+            {
+                Fail();
+            }
+        }
 
         if (elapsed > duration + 0.15f)
         {
@@ -29,51 +50,41 @@ public class RhythmNote : MonoBehaviour
         }
     }
 
-    public void OnClick()
+    void EvaluateHit()
     {
-        if (wasHandled) return;
-
-        float error = Mathf.Abs(duration - elapsed);
         wasHandled = true;
+        float error = Mathf.Abs(duration - elapsed);
 
-        if (error < 0.1f)
+        if (error < 0.2f)
         {
             SpawnHitResult("PERFECT", Color.yellow);
             ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.perfectPoints);
+            if (knight != null) knight.MoveInDirection(targetKey);
         }
         else if (error < 0.3f)
         {
             SpawnHitResult("GOOD", Color.cyan);
             ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.goodPoints);
+            if (knight != null) knight.MoveInDirection(targetKey);
         }
         else
         {
             SpawnHitResult("MISS", Color.gray);
-            ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.missPoints);
+            ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.perfectPoints);
         }
 
-        Animator anim = GetComponent<Animator>();
-        if (anim != null)
-        {
-            anim.Play("HitShow");
-            Destroy(gameObject, 0.2f);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 
     void SpawnHitResult(string rank, Color color)
     {
         if (hitResultPrefab == null || canvasTransform == null)
         {
-            Debug.LogError("RhythmNote: hitResultPrefab or canvasTransform is not assigned!");
+            Debug.LogError("ActorMCCommand: hitResultPrefab or canvasTransform is not assigned!");
             return;
         }
 
         GameObject go = Instantiate(hitResultPrefab, canvasTransform);
-
         go.transform.SetAsLastSibling();
 
         RectTransform noteRT = GetComponent<RectTransform>();
@@ -92,20 +103,16 @@ public class RhythmNote : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("RhythmNote: No TextMeshProUGUI found in hitResultPrefab children.");
+            Debug.LogWarning("ActorMCCommand: No TextMeshProUGUI found in hitResultPrefab children.");
         }
     }
+
 
     void Fail()
     {
         wasHandled = true;
         SpawnHitResult("MISS", Color.gray);
         ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.missPoints);
-        Destroy(gameObject);
-    }
-
-    public void DestroySelf()
-    {
         Destroy(gameObject);
     }
 }
