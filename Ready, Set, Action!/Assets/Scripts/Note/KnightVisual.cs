@@ -5,6 +5,9 @@ public class KnightVisual : MonoBehaviour
     [Header("Sprites")]
     public Sprite idleSprite;
 
+    [Header("Failure Effects")]
+    public GameObject sweatPrefab;
+    public Vector3 sweatOffset = new Vector3(0.5f, 1f, 0f);
     private SpriteRenderer spriteRenderer;
 
     void Awake()
@@ -24,9 +27,10 @@ public class KnightVisual : MonoBehaviour
     {
         if (pose == null)
         {
-            Debug.LogWarning("KnightVisual: No pose sprite assigned for this command!");
+            Debug.LogWarning("KnightVisual: No pose sprite assigned!");
             return;
         }
+
         spriteRenderer.sprite = pose;
     }
 
@@ -34,5 +38,24 @@ public class KnightVisual : MonoBehaviour
     {
         if (idleSprite != null)
             spriteRenderer.sprite = idleSprite;
+    }
+
+    public void PlayFailureEffects()
+    {
+        if (sweatPrefab != null)
+        {
+            Vector3 spawnPos = transform.position + sweatOffset;
+            Instantiate(sweatPrefab, spawnPos, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("KnightVisual: No sweat prefab assigned!");
+        }
+
+        // Shake camera
+        if (CameraShake.Instance != null)
+            CameraShake.Instance.Shake(0.3f, 0.2f);
+        else
+            Debug.LogWarning("KnightVisual: No CameraShake found on camera!");
     }
 }
