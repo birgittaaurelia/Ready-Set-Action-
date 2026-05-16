@@ -4,7 +4,6 @@ public class KnightVisual : MonoBehaviour
 {
     [Header("Sprites")]
     public Sprite idleSprite;
-    public float poseHoldDuration = 0.5f;
 
     private SpriteRenderer spriteRenderer;
 
@@ -25,14 +24,10 @@ public class KnightVisual : MonoBehaviour
     {
         if (pose == null)
         {
-            Debug.LogWarning("KnightVisual: No pose sprite assigned for this command, staying idle!");
+            Debug.LogWarning("KnightVisual: No pose sprite assigned for this command!");
             return;
         }
-
         spriteRenderer.sprite = pose;
-
-        CancelInvoke(nameof(SetIdle));
-        Invoke(nameof(SetIdle), poseHoldDuration);
     }
 
     public void SetIdle()

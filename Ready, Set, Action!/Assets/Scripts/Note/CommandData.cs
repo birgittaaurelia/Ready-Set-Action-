@@ -12,4 +12,14 @@ public class CommandData
     public AudioClip soundEffect;
     public string stageEffectTag;
     public Sprite poseSprite;
+
+    [Header("Movement")]
+    public MoveDirection moveDirection = MoveDirection.None;
+}
+
+public enum MoveDirection
+{
+    None,
+    Left,
+    Right
 }

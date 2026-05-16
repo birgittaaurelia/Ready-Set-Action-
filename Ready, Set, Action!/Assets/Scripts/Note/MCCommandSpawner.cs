@@ -12,6 +12,7 @@ public class MCCommandSpawner : MonoBehaviour
     public Transform commandSpawnPoint;
     public AudioSource audioSource;
     public KnightVisual knightVisual;
+    public KnightMover knightMover;
 
     public List<CommandData> movementTimeline = new List<CommandData>();
 
@@ -74,6 +75,9 @@ public class MCCommandSpawner : MonoBehaviour
         if (knightVisual != null)
             knightVisual.SetPose(data.poseSprite);
 
+        if (knightMover != null)
+            knightMover.Move(data.moveDirection);
+
         if (audioSource != null && data.soundEffect != null)
             audioSource.PlayOneShot(data.soundEffect);
 
@@ -86,4 +90,5 @@ public class MCCommandSpawner : MonoBehaviour
 
         Debug.Log("Knight executed: " + data.commandKey);
     }
+
 }
