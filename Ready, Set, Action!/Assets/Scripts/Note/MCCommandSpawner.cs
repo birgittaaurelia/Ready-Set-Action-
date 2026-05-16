@@ -68,7 +68,7 @@ public class MCCommandSpawner : MonoBehaviour
         }
     }
 
-    public void ExecuteCommand(CommandData data)
+    public void ExecuteCommand(CommandData data, string hitRank)
     {
         if (data == null) return;
 
@@ -77,6 +77,12 @@ public class MCCommandSpawner : MonoBehaviour
 
         if (knightMover != null)
             knightMover.Move(data.moveDirection);
+
+        if (hitRank == "GOOD" || hitRank == "MISS")
+        {
+            if (knightVisual != null)
+                knightVisual.PlayFailureEffects();
+        }
 
         if (audioSource != null && data.soundEffect != null)
             audioSource.PlayOneShot(data.soundEffect);
@@ -87,8 +93,6 @@ public class MCCommandSpawner : MonoBehaviour
             if (stageEffect != null)
                 stageEffect.SendMessage("TriggerEffect", SendMessageOptions.DontRequireReceiver);
         }
-
-        Debug.Log("Knight executed: " + data.commandKey);
     }
 
 }

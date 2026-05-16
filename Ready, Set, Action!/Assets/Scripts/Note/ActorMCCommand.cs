@@ -61,18 +61,19 @@ public class ActorMCCommand : MonoBehaviour
         {
             SpawnHitResult("PERFECT", Color.yellow);
             ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.perfectPoints);
-            spawner?.ExecuteCommand(commandData);
+            spawner?.ExecuteCommand(commandData, "PERFECT");
         }
         else if (error < 0.3f)
         {
             SpawnHitResult("GOOD", Color.cyan);
             ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.goodPoints);
-            spawner?.ExecuteCommand(commandData);
+            spawner?.ExecuteCommand(commandData, "GOOD");
         }
         else
         {
             SpawnHitResult("MISS", Color.gray);
             ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.missPoints);
+            spawner?.ExecuteCommand(commandData, "MISS");
         }
 
         Destroy(gameObject);
@@ -83,6 +84,7 @@ public class ActorMCCommand : MonoBehaviour
         wasHandled = true;
         SpawnHitResult("MISS", Color.gray);
         ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.missPoints);
+        spawner?.ExecuteCommand(commandData, "MISS");
         Destroy(gameObject);
     }
 
