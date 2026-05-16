@@ -38,15 +38,15 @@ public class MainMenu : MonoBehaviour
         {
             if (currentLevel > 1)
             {
-                currentLevel--;
-                if (currentLevel == 1)
-                {
-                    animator.Play("TwoToOne");
-                }
-                else if (currentLevel == 2)
-                {
-                    animator.Play("ThreeToTwo");
-                }
+                // currentLevel--;
+                // if (currentLevel == 1)
+                // {
+                //     animator.Play("TwoToOne");
+                // }
+                // else if (currentLevel == 2)
+                // {
+                //     animator.Play("ThreeToTwo");
+                // }
             }
             else{
                 //play audio later
@@ -59,15 +59,15 @@ public class MainMenu : MonoBehaviour
         {
             if (currentLevel < 3)
             {
-                currentLevel++;
-                if (currentLevel == 2)
-                {
-                    animator.Play("OneToTwo");
-                }
-                else if (currentLevel == 3)
-                {
-                    animator.Play("TwoToThree");
-                }
+                // currentLevel++;
+                // if (currentLevel == 2)
+                // {
+                //     animator.Play("OneToTwo");
+                // }
+                // else if (currentLevel == 3)
+                // {
+                //     animator.Play("TwoToThree");
+                // }
             }
             else
             {
