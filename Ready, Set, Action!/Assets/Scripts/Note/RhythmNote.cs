@@ -12,6 +12,11 @@ public class RhythmNote : MonoBehaviour
     private float elapsed = 0f;
     private float duration = 1.0f;
     private bool wasHandled = false;
+    
+    public void SetDuration(float newDuration)
+    {
+        duration = newDuration;
+    }
 
     void Update()
     {

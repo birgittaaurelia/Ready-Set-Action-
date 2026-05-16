@@ -3,24 +3,32 @@ using TMPro;
 
 public class ActorMCCommand : MonoBehaviour
 {
+    [Header("References")]
     public RectTransform timingRectangle;
     public TextMeshProUGUI directionText;
     public float duration = 1.0f;
 
-    [Header ("Hit Result")]
+    [Header("Hit Result")]
     public GameObject hitResultPrefab;
     public Transform canvasTransform;
+
+    [HideInInspector] public CommandData commandData;
 
     private string targetKey;
     private float elapsed = 0f;
     private bool wasHandled = false;
-    private MCCommandSpawner knight;
+    private MCCommandSpawner spawner;
 
-    public void SetupCommand(MCCommandSpawner knightRef, string requiredKey)
+    public void SetupCommand(MCCommandSpawner spawnerRef, string requiredKey)
     {
-        knight = knightRef;
+        spawner = spawnerRef;
         targetKey = requiredKey.ToUpper();
         directionText.text = targetKey;
+    }
+
+    public void SetDuration(float newDuration)
+    {
+        duration = newDuration;
     }
 
     void Update()
@@ -35,19 +43,13 @@ public class ActorMCCommand : MonoBehaviour
         if (Input.anyKeyDown)
         {
             if (Input.GetKeyDown(targetKey.ToLower()))
-            {
                 EvaluateHit();
-            }
             else
-            {
                 Fail();
-            }
         }
 
         if (elapsed > duration + 0.15f)
-        {
             Fail();
-        }
     }
 
     void EvaluateHit()
@@ -55,24 +57,32 @@ public class ActorMCCommand : MonoBehaviour
         wasHandled = true;
         float error = Mathf.Abs(duration - elapsed);
 
-        if (error < 0.2f)
+        if (error < 0.1f)
         {
             SpawnHitResult("PERFECT", Color.yellow);
             ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.perfectPoints);
-            if (knight != null) knight.MoveInDirection(targetKey);
+            spawner?.ExecuteCommand(commandData);
         }
         else if (error < 0.3f)
         {
             SpawnHitResult("GOOD", Color.cyan);
             ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.goodPoints);
-            if (knight != null) knight.MoveInDirection(targetKey);
+            spawner?.ExecuteCommand(commandData);
         }
         else
         {
             SpawnHitResult("MISS", Color.gray);
-            ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.perfectPoints);
+            ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.missPoints);
         }
 
+        Destroy(gameObject);
+    }
+
+    void Fail()
+    {
+        wasHandled = true;
+        SpawnHitResult("MISS", Color.gray);
+        ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.missPoints);
         Destroy(gameObject);
     }
 
@@ -91,9 +101,7 @@ public class ActorMCCommand : MonoBehaviour
         RectTransform resultRT = go.GetComponent<RectTransform>();
 
         if (resultRT != null && noteRT != null)
-        {
             resultRT.anchoredPosition = noteRT.anchoredPosition;
-        }
 
         TextMeshProUGUI txt = go.GetComponentInChildren<TextMeshProUGUI>();
         if (txt != null)
@@ -105,14 +113,5 @@ public class ActorMCCommand : MonoBehaviour
         {
             Debug.LogWarning("ActorMCCommand: No TextMeshProUGUI found in hitResultPrefab children.");
         }
-    }
-
-
-    void Fail()
-    {
-        wasHandled = true;
-        SpawnHitResult("MISS", Color.gray);
-        ScoreCalculation.Instance.UpdateScore(ScoreCalculation.Instance.missPoints);
-        Destroy(gameObject);
     }
 }
