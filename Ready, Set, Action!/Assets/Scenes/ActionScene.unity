@@ -335,6 +335,25 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &340426120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4267509384626453612, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
+  m_PrefabInstance: {fileID: 1288998748}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &340426121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340426120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb4b720f43a9694da93699c89a20c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnightVisual
+  idleSprite: {fileID: 4035959289877228764, guid: c9ee65d3c9220174695c3657ee117a41, type: 3}
+  poseHoldDuration: 0.5
 --- !u!1 &657063490
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,11 +646,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5209550004391674625, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -5.83
       objectReference: {fileID: 0}
     - target: {fileID: 5209550004391674625, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.55
       objectReference: {fileID: 0}
     - target: {fileID: 5209550004391674625, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -679,19 +698,39 @@ PrefabInstance:
       objectReference: {fileID: 889617990090463, guid: 129794caf9952ca4bb091d08b8785302, type: 3}
     - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
       propertyPath: movementTimeline.Array.size
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
+      propertyPath: movementTimeline.Array.data[0].duration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
+      propertyPath: movementTimeline.Array.data[1].duration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
+      propertyPath: movementTimeline.Array.data[0].spawnTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
       propertyPath: movementTimeline.Array.data[1].spawnTime
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
       propertyPath: movementTimeline.Array.data[2].spawnTime
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
+      propertyPath: movementTimeline.Array.data[0].commandKey
+      value: w
+      objectReference: {fileID: 0}
+    - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
+      propertyPath: movementTimeline.Array.data[0].poseSprite
+      value: 
+      objectReference: {fileID: 7303956121712688439, guid: 9dd273a76772998439feaef0f2cfc3d9, type: 3}
+    - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
       propertyPath: movementTimeline.Array.data[1].commandKey
-      value: A
+      value: W
       objectReference: {fileID: 0}
     - target: {fileID: 6623129721768859759, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
       propertyPath: movementTimeline.Array.data[2].commandKey
@@ -700,7 +739,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4267509384626453612, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 340426121}
   m_SourcePrefab: {fileID: 100100000, guid: 0d493bf8c31bfc442af5e50f76f2a6e7, type: 3}
 --- !u!1 &1929263865
 GameObject:
@@ -796,13 +838,7 @@ MonoBehaviour:
   notePrefab: {fileID: 4565872116010275621, guid: a39735a1faad5304db842f5056ea2d53, type: 3}
   hitResultPrefab: {fileID: 596470596123956573, guid: 8c088b3fc7d23214fabfdb2a56b7397e, type: 3}
   targetCanvas: {fileID: 1026191397}
-  levelData:
-  - spawnTime: 0
-    position: {x: 0.5, y: 0.5}
-  - spawnTime: 2
-    position: {x: 0.2, y: 0.5}
-  - spawnTime: 3
-    position: {x: 0.7, y: 0.5}
+  levelData: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

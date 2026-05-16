@@ -68,6 +68,7 @@ public class NoteSpawner : MonoBehaviour
         {
             note.hitResultPrefab = hitResultPrefab;
             note.canvasTransform = canvasRect;
+            note.SetDuration(data.duration);
         }
         else
         {
