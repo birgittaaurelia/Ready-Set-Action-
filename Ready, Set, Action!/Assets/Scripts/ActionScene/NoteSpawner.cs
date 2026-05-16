@@ -1,14 +1,15 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class NoteSpawner : MonoBehaviour
 {
     [Header("Prefabs")]
     public GameObject notePrefab;
     public GameObject hitResultPrefab;
-
-    [Header("Canvas")]
     public Canvas targetCanvas;
+
+    [Header("References")]
+    public EnemyVisual enemyVisual; 
 
     public List<NoteData> levelData = new List<NoteData>();
 
@@ -18,7 +19,6 @@ public class NoteSpawner : MonoBehaviour
 
     void Awake()
     {
-        // Auto-find Canvas if not assigned
         if (targetCanvas == null)
         {
             targetCanvas = FindFirstObjectByType<Canvas>();
@@ -69,10 +69,12 @@ public class NoteSpawner : MonoBehaviour
             note.hitResultPrefab = hitResultPrefab;
             note.canvasTransform = canvasRect;
             note.SetDuration(data.duration);
+            note.noteData = data;
+            note.enemyVisual = enemyVisual;
         }
         else
         {
-            Debug.LogWarning("NoteSpawner: notePrefab is missing a RhythmNote component!");
+            Debug.LogWarning("NoteSpawner: notePrefab is missing RhythmNote component!");
         }
     }
 }

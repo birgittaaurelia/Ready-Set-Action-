@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KnightVisual : MonoBehaviour
+public class EnemyVisual : MonoBehaviour
 {
     [Header("Sprites")]
     public Sprite idleSprite;
@@ -8,6 +8,7 @@ public class KnightVisual : MonoBehaviour
     [Header("Failure Effects")]
     public GameObject sweatPrefab;
     public Vector3 sweatOffset = new Vector3(0.5f, 1f, 0f);
+
     private SpriteRenderer spriteRenderer;
 
     void Awake()
@@ -16,7 +17,7 @@ public class KnightVisual : MonoBehaviour
 
         if (spriteRenderer == null)
         {
-            Debug.LogError("KnightVisual: No SpriteRenderer found on Knight!");
+            Debug.LogError("EnemyVisual: No SpriteRenderer found on Enemy!");
             return;
         }
 
@@ -27,7 +28,7 @@ public class KnightVisual : MonoBehaviour
     {
         if (pose == null)
         {
-            Debug.LogWarning("KnightVisual: No pose sprite assigned!");
+            Debug.LogWarning("EnemyVisual: No pose sprite assigned for this note!");
             return;
         }
 
@@ -40,7 +41,7 @@ public class KnightVisual : MonoBehaviour
             spriteRenderer.sprite = idleSprite;
     }
 
-    public void PlayFailureEffects()
+    public void PlaySweatEffect()
     {
         if (sweatPrefab != null)
         {
@@ -51,8 +52,10 @@ public class KnightVisual : MonoBehaviour
         {
             Debug.LogWarning("KnightVisual: No sweat prefab assigned!");
         }
+    }
 
-        // Shake camera
+    public void PlayCameraShake()
+    {
         if (CameraShake.Instance != null)
             CameraShake.Instance.Shake(0.3f, 0.2f);
         else

@@ -78,10 +78,19 @@ public class MCCommandSpawner : MonoBehaviour
         if (knightMover != null)
             knightMover.Move(data.moveDirection);
 
-        if (hitRank == "GOOD" || hitRank == "MISS")
+        if (hitRank == "GOOD")
         {
             if (knightVisual != null)
-                knightVisual.PlayFailureEffects();
+                knightVisual.PlaySweatEffect();
+        }
+
+        if (hitRank == "MISS")
+        {
+            if (knightVisual != null)
+            {
+                knightVisual.PlaySweatEffect();
+                knightVisual.PlayCameraShake();
+            }
         }
 
         if (audioSource != null && data.soundEffect != null)
