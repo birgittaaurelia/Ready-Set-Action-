@@ -1046,53 +1046,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &968624630
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 968624632}
-  - component: {fileID: 968624631}
-  m_Layer: 0
-  m_Name: PropSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &968624631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968624630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbaf57991a414a544a516fa8054e6d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PropSpawner
-  propPrefabs:
-  - {fileID: 1078094980559988791, guid: 48313d7530e085d4c8bf2d4f6496f1fd, type: 3}
-  - {fileID: 3682715479127457444, guid: 4c594dafcc59a5b40a648c12a4982727, type: 3}
---- !u!4 &968624632
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 968624630}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.17275, y: -1.92442, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &973836106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,7 +1834,6 @@ SceneRoots:
   - {fileID: 657063491}
   - {fileID: 1288998748}
   - {fileID: 97463991}
-  - {fileID: 968624632}
   - {fileID: 1265758215}
   - {fileID: 888732713}
   - {fileID: 462020722}
