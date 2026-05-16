@@ -87,4 +87,8 @@ public class MainMenu : MonoBehaviour
         }
         currentState = "MainMenu";
     }
+    public void Loadlevel()
+    {
+        SceneManager.LoadScene("ActionScene");
+    }
 }
